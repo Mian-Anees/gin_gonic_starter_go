@@ -1,0 +1,12 @@
+type PType{
+    id:String
+    name:String
+    type:String
+    available:Boolean
+}
+
+input PInput {
+  name: String!
+  type: String!
+  available:Boolean!
+}

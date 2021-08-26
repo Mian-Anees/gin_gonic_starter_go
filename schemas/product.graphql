@@ -1,0 +1,11 @@
+type ProductType{
+    id:String
+    name:String
+    type:String
+    available:Boolean
+}
+input ProductInput {
+  name: String!
+  type: String!
+  available:Boolean!
+}

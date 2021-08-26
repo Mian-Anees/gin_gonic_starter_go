@@ -1,0 +1,5 @@
+
+type Mutation {
+  createProduct(input: ProductInput): ProductType
+  cProduct(input: PInput):PType
+}

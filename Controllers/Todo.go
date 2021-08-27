@@ -1,31 +1,30 @@
-package Controllers
+package controllers
 
 import (
 	"fmt"
 	"net/http"
 	"todoGoGo/internal/service"
 	"github.com/gin-gonic/gin"
-	"todoGoGo/Models"
+	"todoGoGo/models"
 )
 
 //List all todos
 func GetTodos(c *gin.Context){
-
-	var todo []Models.Todo
-	err := service.GetAllTodos(&todo)
+	result,err := service.GetAllTodos()
+	fmt.Printf("----in get %+v",result)
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 	} else {
-		c.JSON(http.StatusOK, todo)
+		c.JSON(http.StatusOK, result)
 	}
 }
 
 //Create a Todo
 func CreateATodo(c *gin.Context){
-	var todo Models.Todo
-	fmt.Printf("%p is controller",c)
+	var todo models.Todo
 	c.BindJSON(&todo)
-	err := service.CreateATodo(&todo)
+	fmt.Printf("%+v is controller",&todo)
+	_,err := service.CreateATodo(&todo)
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 	} else {
@@ -36,7 +35,7 @@ func CreateATodo(c *gin.Context){
 //Get a particular Todo with id
 func GetATodo(c *gin.Context){
 	id := c.Params.ByName("id")
-	var todo Models.Todo
+	var todo models.Todo
 	err := service.GetATodo(&todo, id)
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
@@ -47,7 +46,7 @@ func GetATodo(c *gin.Context){
 
 // Update an existing Todo
 func UpdateATodo(c *gin.Context){
-	var todo Models.Todo
+	var todo models.Todo
 	id := c.Params.ByName("id")
 	err := service.GetATodo(&todo, id)
 	if err != nil {
@@ -64,7 +63,7 @@ func UpdateATodo(c *gin.Context){
 
 // Delete a Todo
 func DeleteATodo(c *gin.Context){
-	var todo Models.Todo
+	var todo models.Todo
 	id := c.Params.ByName("id")
 	err := service.DeleteATodo(&todo, id)
 	if err != nil {

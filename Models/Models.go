@@ -1,4 +1,4 @@
-package Models
+package models
 
 import "gorm.io/gorm"
 
@@ -10,9 +10,9 @@ type Product struct {
 }
 
 type Todo struct {
-	ID          uint   `json:"id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
+	ID          uint   `gorm:"column:id"  json:"id"`
+	Title       string `gorm:"column:title"  json:"title"`
+	Description string `gorm:"column:description"  json:"description"`
 }
 
 func (b *Todo) TableName() string {

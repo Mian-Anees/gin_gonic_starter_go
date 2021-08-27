@@ -18,9 +18,9 @@ package cmd
 import (
 	"fmt"
 	"log"
-	"todoGoGo/Config"
-	"todoGoGo/Models"
-	"todoGoGo/Routes"
+	"todoGoGo/config"
+	"todoGoGo/models"
+	"todoGoGo/routes"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/spf13/cobra"
@@ -35,18 +35,18 @@ and usage of using your command.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// Creating a connection to the database
 		var err error;
-		Config.DB, err = gorm.Open("postgres", "user=postgres password=podtgres dbname=test sslmode=disable")
-		// Config.DbURL(Config.BuildDBConfig()))
+		config.DB, err = gorm.Open("postgres", "user=postgres password=podtgres dbname=test sslmode=disable")
+		// config.DbURL(config.BuildDBconfig()))
 		if err != nil {
 
 			fmt.Println("statuse: ", err)
 		}
-		defer Config.DB.Close()
+		defer config.DB.Close()
 		// run the migrations: todo struct
-		Config.DB.AutoMigrate(&Models.Product{})
-		Config.DB.SetLogger(log.Default())
+		config.DB.AutoMigrate(&models.Product{})
+		config.DB.SetLogger(log.Default())
 		//setup routes
-		r := Routes.SetupRouter()
+		r := routes.SetupRouter()
 
 		// running
 		r.Run(":9090")
